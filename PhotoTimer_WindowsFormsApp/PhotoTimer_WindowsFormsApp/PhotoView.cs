@@ -12,12 +12,12 @@ namespace PhotoTimer_WindowsFormsApp
 
         {
 
-            public event EventDelegate myEvent = null;
+            public event EventDelegate MyEvent = null;
 
             public void InvokeEvent()
 
             {
-                myEvent.Invoke();
+                MyEvent.Invoke();
             }
         }    
 }

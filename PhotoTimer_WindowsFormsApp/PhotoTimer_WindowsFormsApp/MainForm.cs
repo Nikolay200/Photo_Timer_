@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PhotoTimer_WindowsFormsApp
@@ -25,30 +19,30 @@ namespace PhotoTimer_WindowsFormsApp
             InitializeComponent();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
             TimerCallback tm = new TimerCallback(MakePhoto);
             System.Threading.Timer timer = new System.Threading.Timer(tm, 0, 1000, 3000);
         }
 
-        private void pauseButton_Click(object sender, EventArgs e)
+        private void PauseButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void showButton_Click(object sender, EventArgs e)
+        private void ShowButton_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(path);
         }
 
-        private void resetButton_Click(object sender, EventArgs e)
+        private void ResetButton_Click(object sender, EventArgs e)
         {
             DeleteFolder(subpath);
 
             Application.Restart();
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
             DialogResult warning = MessageBox.Show($"Вы действительно хотите удалить папку {nameFolder} со всем содержимым?", "Удаление объекта", MessageBoxButtons.YesNo);
 
@@ -71,7 +65,7 @@ namespace PhotoTimer_WindowsFormsApp
             }
         }
 
-        private void countLabel_Click(object sender, EventArgs e)
+        private void CountLabel_Click(object sender, EventArgs e)
         {
 
         }
@@ -108,7 +102,7 @@ namespace PhotoTimer_WindowsFormsApp
 
             var instance = new PhotoView();
 
-            instance.myEvent += Instance_myEvent;
+            instance.MyEvent += Instance_myEvent;
 
             instance.InvokeEvent();
 

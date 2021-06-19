@@ -47,7 +47,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Старт";
             this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.startButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // pauseButton
             // 
@@ -58,7 +58,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.pauseButton.TabIndex = 1;
             this.pauseButton.Text = "Остановить";
             this.pauseButton.UseVisualStyleBackColor = true;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            this.pauseButton.Click += new System.EventHandler(this.PauseButton_Click);
             // 
             // showButton
             // 
@@ -69,7 +69,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.showButton.TabIndex = 2;
             this.showButton.Text = "Посмотреть";
             this.showButton.UseVisualStyleBackColor = true;
-            this.showButton.Click += new System.EventHandler(this.showButton_Click);
+            this.showButton.Click += new System.EventHandler(this.ShowButton_Click);
             // 
             // resetButton
             // 
@@ -80,7 +80,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.resetButton.TabIndex = 3;
             this.resetButton.Text = "Сброс";
             this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // deleteButton
             // 
@@ -91,7 +91,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.deleteButton.TabIndex = 4;
             this.deleteButton.Text = "Удалить";
             this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // countLabel
             // 
@@ -103,7 +103,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.countLabel.Size = new System.Drawing.Size(15, 16);
             this.countLabel.TabIndex = 5;
             this.countLabel.Text = "0";
-            this.countLabel.Click += new System.EventHandler(this.countLabel_Click);
+            this.countLabel.Click += new System.EventHandler(this.CountLabel_Click);
             // 
             // label2
             // 
