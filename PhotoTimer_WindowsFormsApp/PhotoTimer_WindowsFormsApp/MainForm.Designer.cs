@@ -103,7 +103,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.countLabel.Size = new System.Drawing.Size(15, 16);
             this.countLabel.TabIndex = 5;
             this.countLabel.Text = "0";
-            this.countLabel.Click += new System.EventHandler(this.CountLabel_Click);
+            this.countLabel.TextChanged += new System.EventHandler(this.CountLabel_TextChanged);
             // 
             // label2
             // 
@@ -129,6 +129,7 @@ namespace PhotoTimer_WindowsFormsApp
             this.Controls.Add(this.startButton);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
