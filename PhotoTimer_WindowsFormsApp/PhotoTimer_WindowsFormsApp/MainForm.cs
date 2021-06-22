@@ -14,27 +14,21 @@ namespace PhotoTimer_WindowsFormsApp
 
         private static string subpath = $@"Photo{DateTime.Now.ToString("(dd MMMM yyyy  hh.mm.ss)")}";
 
-        public static int CountPhotos = 0;
-
         public static System.Threading.Timer timer;
 
-        private static Button StartButton;
-     
+        public static int CountPhotos;
+
         public MainForm()
         {
             InitializeComponent();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            ShowScore();
-        }
+        }       
 
         private void StartButton_Click(object sender, EventArgs e)
         {
             var tm = new TimerCallback(MakePhoto);
             
              timer = new System.Threading.Timer(tm, 0, 1000, 3000);
+            countLabel.Text = CountPhotos.ToString();
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
@@ -58,8 +52,9 @@ namespace PhotoTimer_WindowsFormsApp
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            DeleteFolder($@"{path}\{subpath}");
-            //Application.Restart();
+            DirectoryInfo dirInfo = new DirectoryInfo($@"{path}\{subpath}");
+            dirInfo.Delete(true); // папку надо удалять со всем содержимым
+            MessageBox.Show($@"Папка ""{subpath}"" успешно удалена.");                     
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -76,12 +71,7 @@ namespace PhotoTimer_WindowsFormsApp
                 warning = DialogResult.Cancel;
             }
         }
-
-        private void CountLabel_TextChanged(object sender, EventArgs e)
-        {
-            countlabel.TextChanged += CountLabel_TextChanged;
-            
-        }
+        
 
         private void ShowScore()
         {
@@ -135,9 +125,7 @@ namespace PhotoTimer_WindowsFormsApp
 
         private static void Photo_addPhoto()
 
-        {
-
-            CountPhotos++;
+        {           
 
             MessageBox.Show($"В папке {CountPhotos} фотографий");
 
@@ -152,13 +140,13 @@ namespace PhotoTimer_WindowsFormsApp
 
                 timer.Dispose();
 
-                DialogResult overflow = MessageBox.Show($"В папку \"{nameFolder}\" добавлено {CountPhotos} фотографий. Продолжить?", "Осторожно! Возможно переполнение папки.", MessageBoxButtons.YesNo);
+                DialogResult overflow = MessageBox.Show($@"В папку ""{nameFolder}"" добавлено {CountPhotos} фотографий. Продолжить?", "Осторожно! Возможно переполнение папки.", MessageBoxButtons.YesNo);
 
                 if (overflow == DialogResult.Yes)
 
                 {
 
-                    StartButton.PerformClick();
+                    MessageBox.Show(@"Чтобы продолжить, нажмите кнопку ""Старт""");
 
                 }
 

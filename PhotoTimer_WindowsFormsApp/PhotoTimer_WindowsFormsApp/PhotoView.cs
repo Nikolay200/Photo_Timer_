@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace PhotoTimer_WindowsFormsApp
 {   
-        public delegate void EventDelegate();
-
         public class PhotoView
 
         {
-
-            public event EventDelegate addPhoto = null;
+        public delegate void EventDelegate();
+        public event EventDelegate addPhoto = null;
+        public static int CountPhotos = 0;
+        public PhotoView()
+        {
+            CountPhotos++;
+        }
 
             public void InvokeEvent()
 
