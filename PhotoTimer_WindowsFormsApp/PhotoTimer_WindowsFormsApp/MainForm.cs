@@ -20,8 +20,7 @@ namespace PhotoTimer_WindowsFormsApp
         
         public MainForm()
         {
-            InitializeComponent();
-           
+            InitializeComponent();          
         }       
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -48,14 +47,13 @@ namespace PhotoTimer_WindowsFormsApp
             {
                 MessageBox.Show(@"В данной директории нет указанной папки. Возможно она не была создана. Нажмите ""Старт"", чтобы создать папку для хранения снимков");
                 throw;
-            }
-            
+            }            
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
             DirectoryInfo dirInfo = new DirectoryInfo($@"{path}\{subpath}");
-            dirInfo.Delete(true); // папку надо удаляется со всем содержимым
+            dirInfo.Delete(true); 
             MessageBox.Show($@"Папка ""{subpath}"" успешно удалена.");                     
         }
 
@@ -80,23 +78,19 @@ namespace PhotoTimer_WindowsFormsApp
             try
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(path);
-                dirInfo.Delete(true); // папку надо удалять со всем содержимым
+                dirInfo.Delete(true); // папку надо удаляется со всем содержимым
                 MessageBox.Show($@"Папка ""{nameFolder}"" успешно удалена.");
             }
 
             catch (Exception ex)
 
             {
-
                 Console.WriteLine(ex.Message);
-
             }
-
         }
         public static void MakePhoto(object obj)
 
-        {
-            photo.CountPhotos++;
+        {           
             DirectoryInfo dirInfo = new DirectoryInfo(path);
 
             dirInfo.Create();
@@ -118,39 +112,27 @@ namespace PhotoTimer_WindowsFormsApp
 
         private static void Photo_addPhoto()
 
-        {
-            
+        {            
             MessageBox.Show($"В папке {photo.CountPhotos} фотографий");            
-
 
             if (photo.CountPhotos % 10 == 0)
 
             {
-
                 timer.Dispose();
-
                 DialogResult overflow = MessageBox.Show($@"В папку ""{nameFolder}"" добавлено {photo.CountPhotos} фотографий. Продолжить?", "Осторожно! Возможно переполнение папки.", MessageBoxButtons.YesNo);
 
                 if (overflow == DialogResult.Yes)
 
                 {
-
                     MessageBox.Show(@"Чтобы продолжить, нажмите кнопку ""Старт""");
-
                 }
 
                 if (overflow == DialogResult.No)
 
                 {
-
                     overflow = DialogResult.Cancel;
-
                 }
-
             }
-
-        }
-
-        
+        }       
     }
 }
