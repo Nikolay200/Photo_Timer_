@@ -5,15 +5,9 @@ namespace PhotoTimer_WindowsFormsApp
 
         {
         public delegate void EventDelegate();
-        public event EventDelegate addPhoto = null;
-        public int CountPhotos = 0;
-        public PhotoView()
-        {
-            CountPhotos++;           
-        }
-
+        public event EventDelegate addPhoto = null;        
+        
             public void InvokeEvent()
-
             {
                 addPhoto.Invoke();
             }

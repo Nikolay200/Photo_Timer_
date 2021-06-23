@@ -9,14 +9,13 @@ namespace PhotoTimer_WindowsFormsApp
     public partial class MainForm : Form
     {
         private static string nameFolder = "TestFolder";
-
         private static string path = $@"C:\Program Files\{nameFolder}";
-
         private static string subpath = $@"Photo{DateTime.Now.ToString("(dd MMMM yyyy  hh.mm.ss)")}";
 
+        public System.Windows.Forms.Timer numberTimer = new System.Windows.Forms.Timer();
         public static System.Threading.Timer timer;
 
-        public static PhotoView photo;
+        public static int CountPhotos = 0;
         
         public MainForm()
         {
@@ -27,14 +26,23 @@ namespace PhotoTimer_WindowsFormsApp
         {
             var tm = new TimerCallback(MakePhoto);
             
-             timer = new System.Threading.Timer(tm, 0, 1000, 3000);
+             timer = new System.Threading.Timer(tm, 0, 500, 1000);
 
-            countLabel.Text = photo.CountPhotos.ToString();
+            var result = new Result(CountPhotos);
+            numberTimer.Interval = 500;
+            numberTimer.Tick += NumberTimer_Tick;
+            numberTimer.Start();
+        }
+
+        private void NumberTimer_Tick(object sender, EventArgs e)
+        {
+            countLabel.Text = CountPhotos.ToString();
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
         {
             timer.Dispose();
+            MessageBox.Show(@"Чтобы продолжить, нажмите ""Старт""");
         }
 
         private void ShowButton_Click(object sender, EventArgs e)
@@ -52,14 +60,25 @@ namespace PhotoTimer_WindowsFormsApp
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new DirectoryInfo($@"{path}\{subpath}");
-            dirInfo.Delete(true); 
-            MessageBox.Show($@"Папка ""{subpath}"" успешно удалена.");                     
+            DialogResult warning = MessageBox.Show($@"Вы действительно хотите очистить папку ""{nameFolder}""?", "Очистка", MessageBoxButtons.YesNo);
+            if (warning == DialogResult.Yes)
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo($@"{path}\{subpath}");
+                dirInfo.Delete(true);
+                CountPhotos = 0;
+                MessageBox.Show($@"Папка ""{subpath}"" успешно удалена.");
+            }
+
+            else if (warning == DialogResult.No)
+            {
+                warning = DialogResult.Cancel;
+            }
+                                 
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DialogResult warning = MessageBox.Show($"Вы действительно хотите удалить папку {nameFolder} со всем содержимым?", "Удаление объекта", MessageBoxButtons.YesNo);
+            DialogResult warning = MessageBox.Show($@"Вы действительно хотите удалить папку ""{nameFolder}"" со всем содержимым?", "Удаление объекта", MessageBoxButtons.YesNo);
 
             if (warning == DialogResult.Yes)
             {
@@ -96,7 +115,7 @@ namespace PhotoTimer_WindowsFormsApp
             dirInfo.Create();
             dirInfo.CreateSubdirectory(subpath);
 
-            photo = new PhotoView();
+            var photo = new PhotoView();
             photo.addPhoto += Photo_addPhoto;            
             photo.InvokeEvent();
             
@@ -106,20 +125,20 @@ namespace PhotoTimer_WindowsFormsApp
             var randomY = new Random();
             graphics.CopyFromScreen(randomX.Next(0, 200), randomY.Next(0, 200), 0, 0, printscreen.Size);
 
-            printscreen.Save($@"C:\Program Files\TestFolder\{subpath}\printscreen {DateTime.Now.ToString("(hh.mm.ss)")}.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            printscreen.Save($@"C:\Program Files\TestFolder\{subpath}\printscreen №{CountPhotos} {DateTime.Now.ToString("(hh.mm.ss)")}.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
         }
 
         private static void Photo_addPhoto()
 
-        {            
-            MessageBox.Show($"В папке {photo.CountPhotos} фотографий");            
+        {
+            CountPhotos++;           
 
-            if (photo.CountPhotos % 10 == 0)
+            if (CountPhotos % 10 == 0)
 
             {
                 timer.Dispose();
-                DialogResult overflow = MessageBox.Show($@"В папку ""{nameFolder}"" добавлено {photo.CountPhotos} фотографий. Продолжить?", "Осторожно! Возможно переполнение папки.", MessageBoxButtons.YesNo);
+                DialogResult overflow = MessageBox.Show($@"В папку ""{nameFolder}"" добавлено {CountPhotos} фотографий. Продолжить?", "Осторожно! Возможно переполнение папки.", MessageBoxButtons.YesNo);
 
                 if (overflow == DialogResult.Yes)
 
